@@ -1,1 +1,42 @@
-const c=document.getElementById('embers'),x=c.getContext('2d');function r(){c.width=innerWidth;c.height=innerHeight}r();onresize=r;let p=[...Array(120)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+1,v:-Math.random()-.2}));(function a(){x.clearRect(0,0,c.width,c.height);p.forEach(o=>{x.fillStyle='orange';x.beginPath();x.arc(o.x,o.y,o.r,0,6.28);x.fill();o.y+=o.v;if(o.y<0){o.y=c.height;o.x=Math.random()*c.width;}});requestAnimationFrame(a)})();
+const c = document.getElementById('embers');
+const x = c.getContext('2d');
+
+function resize() {
+    c.width = innerWidth;
+    c.height = innerHeight;
+}
+
+resize();
+window.onresize = resize;
+
+let particles = [...Array(120)].map(() => ({
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+    r: Math.random() * 2 + 1,
+    v: -Math.random() - 0.2
+}));
+
+function animate() {
+
+    x.clearRect(0, 0, c.width, c.height);
+
+    particles.forEach(p => {
+
+        x.fillStyle = "orange";
+
+        x.beginPath();
+        x.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        x.fill();
+
+        p.y += p.v;
+
+        if (p.y < 0) {
+            p.y = c.height;
+            p.x = Math.random() * c.width;
+        }
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
